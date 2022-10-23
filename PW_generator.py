@@ -8,7 +8,7 @@ special_character = "!§$%&/()=?`*'-+\}][{"
 password = []
 
 print("\n")
-print("Network Scanner V1.0")
+print("Password Generator V1.0")
 print("******************************************************************")
 print(r"""
 ╔═╗╦═╗╔╦╗╦ ╦╦ ╦╦═╗  ╔╦╗╦╔╗╔╔═╗╔═╗╦ ╦╔═╗╔╗╔
