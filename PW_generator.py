@@ -1,5 +1,6 @@
 import random
 import time
+import os
 
 letter_list_upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 letter_list_lower = "abcdefghijklmnopqrstuvwxyz"
@@ -34,6 +35,7 @@ print("(6) 128 Stellen (Unvorstellbar Stark)")
 print("(7) 256 Stellen (Unvorstellbar Stark)")
 print("\n")
 
+file = os.path.join(os.environ['USERPROFILE']+"/Desktop"+"/password.txt")
 while True:
     try:
         user_choice = int(input("Wählen Sie aus der oberen Liste die Länge Ihres Passwortes: "))
@@ -46,7 +48,9 @@ while True:
             time.sleep(1)
             print("Ihr Passwort lautet:" + '\033[1m', list_to_string(password), '\033[0m')
             
-            with open(r'C:\Users\Arthur\Desktop\passwort.txt', 'a') as writer:
+            
+
+            with open(file, 'a') as writer:
                 writer.write(list_to_string(password) + '\n')
             print("Eine Datei wurde auf Ihrem Desktop erstellt bzw. aktualisiert.")
 
@@ -66,7 +70,7 @@ while True:
             time.sleep(1)
             print("Ihr Passwort lautet:" + '\033[1m', list_to_string(password), '\033[0m')
 
-            with open(r'C:\Users\Arthur\Desktop\passwort.txt', 'a') as writer:
+            with open(file, 'a') as writer:
                 writer.write(list_to_string(password) + '\n')
             print("Eine Datei wurde auf Ihrem Desktop erstellt bzw. aktualisiert.")
 
@@ -86,7 +90,7 @@ while True:
             time.sleep(1)
             print("Ihr Passwort lautet:" + '\033[1m', list_to_string(password), '\033[0m')
 
-            with open(r'C:\Users\Arthur\Desktop\passwort.txt', 'a') as writer:
+            with open(file, 'a') as writer:
                 writer.write(list_to_string(password) + '\n')
             print("Eine Datei wurde auf Ihrem Desktop erstellt bzw. aktualisiert.")
 
@@ -106,7 +110,7 @@ while True:
             time.sleep(1)
             print("Ihr Passwort lautet:" + '\033[1m', list_to_string(password), '\033[0m')
 
-            with open(r'C:\Users\Arthur\Desktop\passwort.txt', 'a') as writer:
+            with open(file, 'a') as writer:
                 writer.write(list_to_string(password) + '\n')
             print("Eine Datei wurde auf Ihrem Desktop erstellt bzw. aktualisiert.")
 
@@ -126,7 +130,7 @@ while True:
             time.sleep(1)
             print("Ihr Passwort lautet:" + '\033[1m', list_to_string(password), '\033[0m')
 
-            with open(r'C:\Users\Arthur\Desktop\passwort.txt', 'a') as writer:
+            with open(file, 'a') as writer:
                 writer.write(list_to_string(password) + '\n')
             print("Eine Datei wurde auf Ihrem Desktop erstellt bzw. aktualisiert.")
 
@@ -146,7 +150,7 @@ while True:
             time.sleep(1)
             print("Ihr Passwort lautet:" + '\033[1m', list_to_string(password), '\033[0m')
 
-            with open(r'C:\Users\Arthur\Desktop\passwort.txt', 'a') as writer:
+            with open(file, 'a') as writer:
                 writer.write(list_to_string(password) + '\n')
             print("Eine Datei wurde auf Ihrem Desktop erstellt bzw. aktualisiert.")
 
@@ -166,7 +170,7 @@ while True:
             time.sleep(1)
             print("Ihr Passwort lautet:" + '\033[1m', list_to_string(password), '\033[0m')
 
-            with open(r'C:\Users\Arthur\Desktop\passwort.txt', 'a') as writer:
+            with open(file, 'a') as writer:
                 writer.write(list_to_string(password) + '\n')
             print("Eine Datei wurde auf Ihrem Desktop erstellt bzw. aktualisiert.")
 
@@ -184,5 +188,4 @@ while True:
         print('\033[1m' + "Geben Sie einen Gültigen Wert ein." + '\033[0m')
 
 print("\n")
-print("Programmiert von " + '\033[4m' + "A.Minasyan" + '\033[0m' + " , 2022")
 print("Auf Wiedersehen.")
