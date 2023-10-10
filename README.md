@@ -6,7 +6,7 @@
 /_/    \_,_//___//___/\___/ \__//_//_/
                                       
 ````
-PassGen is a password generator with cryptographic valid random generation of values. It is originally made in order to use on Windows.
+PassGen is a password generator with cryptographic valid random generation of values. It is originally made in order to use in Windows.
 
 ## Modules
 Import the modules following modules: <br>
