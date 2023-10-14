@@ -6,10 +6,10 @@
 /_/    \_,_//___//___/\___/ \__//_//_/
                                       
 ````
-PassGen is a password generator with cryptographic valid random generation of values. It is originally made in order to use in Windows.
+PassGen is a password generator with cryptographic valid random generation of values.
 
-## Modules
-Import the modules following modules: <br>
-- random
-- time
-- os
+## Usage
+
+```
+python3 passgen.py [-l LENGTH] [-h, --help HELP]
+```
