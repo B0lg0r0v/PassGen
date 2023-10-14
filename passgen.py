@@ -35,7 +35,7 @@ def main():
     parser = ArgumentParser()
     parser.add_argument('-l', '--length', help='Desired password length.')
     parser.add_argument('-v', '--version', action='version', version='PassGen V1.0')
-    parser.epilog = "4 digits (Weak), 8 digits (Weak), 16 digits (Strong), 32 digits (Very Strong), 64 & above digits (Uncrackable)"
+    parser.epilog = "4 digits (Weak), 8 digits (Weak), 16 digits (Strong), 32 digits (Very Strong), 64 digits & above (Uncrackable)"
        
     args = parser.parse_args()
 
