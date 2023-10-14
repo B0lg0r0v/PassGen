@@ -4,7 +4,7 @@ import secrets
 letter_list_upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 letter_list_lower = "abcdefghijklmnopqrstuvwxyz"
 numbers = "0123456789"
-special_character = "!§$%&/()=?`*'-+\}][{@;."
+special_character = "!§$%&/()=?`*'-+\}][{@;.~_#,"
 password = []
 
 print("\n")
