@@ -43,7 +43,7 @@ def main():
         if args.length is not None:
             print(f"Generated password: {generation(int(args.length))}")
         else:
-            print("Usage: passgen.py [-l LENGTH]")
+            print("Usage: passgen.py [-l LENGTH] [-h HELP]")
     except ValueError:
         print("Please enter a valid number.")
 
