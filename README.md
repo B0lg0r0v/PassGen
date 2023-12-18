@@ -8,6 +8,7 @@
 
 - [PassGen](#passgen)
   * [Why PassGen ?](#why-passgen)
+  * [General Information](#general-information)
   * [Usage](#usage)
   * [Features Overview](#features-overview)
   * [Installation](#installation)
@@ -20,6 +21,10 @@
 - PassGen can copy the generated password to the clipboard or save it to a file
 - Open Source
 - Unlike other password generators, PassGen runs locally and doesn't require an internet connection.
+
+## General Information
+
+- When using the encryption argument, make sure to put your password between `""`. This is because if you have special characters in your password, your terminal can missinterpret them. This can lead to breaking your password and encrypting something else.
 
 ## Usage
 
