@@ -24,7 +24,7 @@
 
 ## General Information
 
-- When using the encryption argument, make sure to put your password between `""`. This is because if you have special characters in your password, your terminal can missinterpret them. This can lead to breaking your password and encrypting something else.
+- When using the encryption argument, make sure to put your password between `""`. The reason is that if you have special characters in your password, your terminal can/will missinterpret them. This can lead to breaking your password and encrypting something else.
 
 ## Usage
 
