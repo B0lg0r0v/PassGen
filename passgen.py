@@ -18,7 +18,12 @@ from cryptography.fernet import Fernet
 #----------------Function to generate password----------------#
 
 def generatePassword(length, chars):
-    return ''.join(secrets.choice(chars) for i in range(length))
+    try:
+        return ''.join(secrets.choice(chars) for i in range(length))
+    
+    except Exception as e:
+        print(f'\n{indent} {Fore.RED}Error.{Fore.RESET}')
+        sys.exit(1)
 
 #-------------------------------------------------------------#
 
@@ -79,31 +84,41 @@ def main():
     letterListLower = "abcdefghijklmnopqrstuvwxyz"
     numbers = "0123456789"
     specialCharacter = "!§$%&/()=?`*'-+\}][{@;.~_#,"
+    charset = ''
     password = []
     storedPassword = []
 
 #--------------------------------------------------#
 
-    parser = ArgumentParser()
+    parser = ArgumentParser(
+    prog='passgen.py',
+    usage='%(prog)s [options]',
+    description='Password generator with security in mind.'
+)
 
-    parser.add_argument("-v", "--version", action="version", version="PassGen v1.0")
-    parser.add_argument("-l", "--length", type=int, help="Password length. If not specified, the default length is 16.")
-    parser.add_argument("-n", "--number-passwords", type=int, help="Number of passwords")
-    parser.add_argument("-s", "--special", action="store_true", help="Only special characters.")
-    parser.add_argument("-u", "--upper", action="store_true", help="Only uppercase.")
-    parser.add_argument("-d", "--digits", action="store_true", help="Only digits.")
-    parser.add_argument("-c", "--clipboard", action="store_true", help="Copy password to clipboard. Works only with one password at a time.")
-    parser.add_argument("-e", "--encrypt", help="Encrypts your password with AES-256. Works only with one password at a time.")
-    parser.add_argument("-de", "--decrypt", action="store_true", help="Decrypt password with AES-256. Rquires the symmetric key.")
-    parser.add_argument("-ex", "--exclude-specific", help="Exclude specific characters.")
-    parser.add_argument("-exl", "--exclude-lower", action="store_true", help="Exclude lowercase.")
-    parser.add_argument("-exs", "--exclude-special", action="store_true", help="Exclude special characters.")
-    parser.add_argument("-exu", "--exclude-upper", action="store_true", help="Exclude uppercase.")
-    parser.add_argument("-exd", "--exclude-digits", action="store_true", help="Exclude digits.")
+    group = parser.add_argument_group('Password options')
+
+    group.add_argument("-l", "--length", type=int, help="Specify the password length. Default is 20.")
+    group.add_argument("-n", "--number-passwords", type=int, help="Specify the number of passwords to generate. Default is 1.")
+    group.add_argument("-c", "--clipboard", action="store_true", help="Copy the generated password to the clipboard. Only works with one password at a time.")
+    group.add_argument("-e", "--encrypt", help="Encrypt the generated password with AES-256. Only works with one password at a time.")
+    group.add_argument("-de", "--decrypt", nargs=2, metavar=('KEY', 'PASSWORD'), help="Decrypt a password given the key and the encrypted password.")
+    group.add_argument("-o", "--output", help="Save the generated password to a file.")
+
+    group = parser.add_argument_group('Exclude options')
+
+    group.add_argument("-ex", "--exclude-specific", help="Exclude specific characters from the password.")
+    group.add_argument("-exl", "--exclude-lower", action="store_true", help="Exclude lowercase letters from the password.")
+    group.add_argument("-exs", "--exclude-special", action="store_true", help="Exclude special characters from the password.")
+    group.add_argument("-exu", "--exclude-upper", action="store_true", help="Exclude uppercase letters from the password.")
+    group.add_argument("-exd", "--exclude-digits", action="store_true", help="Exclude digits from the password.")
 
     
     args = parser.parse_args()
 
+    charset = ''
+
+    #----------------Check if the user has selected any options----------------#
     
     if not args.decrypt and not args.encrypt:
     
@@ -125,35 +140,25 @@ def main():
         if args.number_passwords:
             numberPasswords = args.number_passwords
         else:
-            numberPasswords = 1
-
-        if args.special:
-            password.append(specialCharacter)
+            numberPasswords = 1        
+    
+        if not args.exclude_lower:
+            charset += letterListLower
         
-        if args.upper:
-            password.append(letterListUpper)
-
-        if args.digits:
-            password.append(numbers)
-
-        if args.exclude_lower:
-            password.append(letterListUpper + numbers + specialCharacter)
+        if not args.exclude_upper:
+            charset += letterListUpper
         
-        if args.exclude_upper:
-            password.append(letterListLower + numbers + specialCharacter)
+        if not args.exclude_digits:
+            charset += numbers
         
-        if args.exclude_digits:
-            password.append(letterListLower + letterListUpper + specialCharacter)
-        
-        if args.exclude_special:
-            password.append(letterListLower + letterListUpper + numbers)
+        if not args.exclude_special:
+            charset += specialCharacter
         
         if args.exclude_specific:
-            password.append(letterListLower + letterListUpper + numbers + specialCharacter.replace(args.exclude_specific, ''))
-        
-        if not args.special and not args.upper and not args.digits and not args.exclude_lower and not args.exclude_upper and not args.exclude_digits and not args.exclude_special and not args.exclude_specific:
-            password.append(letterListLower + letterListUpper + numbers + specialCharacter)
-
+            for i in args.exclude_specific:
+                charset = charset.replace(i, '')
+    
+        password.append(charset)
 
         chars = ''.join(password)
 
@@ -161,11 +166,32 @@ def main():
         for i in range(numberPasswords):
             storedPassword.append(generatePassword(length, chars))
             print(f'{indent} -----> {Fore.GREEN}{storedPassword[i]}{Fore.RESET}')
+
+        if args.output:
+            outputPath = os.path.normpath(args.output)
+            if os.path.isabs(outputPath) or '..' in outputPath: #Trying to prevent path traversal
+                print(f'{indent} {Fore.RED}Invalid path.{Fore.RESET}')
+                sys.exit(1)
+            
+            else:
+                try:
+                    with open(outputPath, 'w') as f:
+                        for i in range(numberPasswords):
+                            f.write(f'{storedPassword[i]}\n')
+                    print(f'{indent} {Fore.LIGHTBLUE_EX}Passwords saved to {outputPath}.{Fore.RESET}')
+                except Exception as e:
+                    print(f'\n{indent} {Fore.RED}Error.{Fore.RESET}')
+                    sys.exit(1)    
         
         if args.clipboard:
             pyperclip.copy(storedPassword[0])
             print(f'{indent} {Fore.LIGHTBLUE_EX}Password copied to clipboard.{Fore.RESET}')
 
+
+    #--------------------------------------------------------------------------#
+            
+            
+    #----------------Check if the user has selected the encrypt option----------------#
 
     # Function to encrypt a password with AES-256
     if args.encrypt:
@@ -174,15 +200,14 @@ def main():
     # Function to decrypt a password given the key and the encrypted password
     if args.decrypt:
         try:
-            key = input(f'{indent} Enter the symmetric key: ')
-            encryptedPassword = input(f'{indent} Enter the encrypted password: ')
-            print(f'{indent} Decrypted password: {Fore.GREEN}{decryptPassword(key, encryptedPassword)}{Fore.RESET}')
+            key, encryptedPassword = args.decrypt
+            print(f'{indent} Decrypted password: {Fore.LIGHTGREEN_EX}{decryptPassword(key, encryptedPassword)}{Fore.RESET}')
         
         except KeyboardInterrupt:
             print(f'\n{indent} {Fore.RED}Canceled.{Fore.RESET}')
             sys.exit(1)
 
-
+    #----------------------------------------------------------------------------------#
 
 if __name__ == "__main__":
 
@@ -199,7 +224,7 @@ if __name__ == "__main__":
     """)
     print("\n")
 
-    indent = ' ' * 4
+    indent = ' ' * 3
     colorama_init(autoreset=True)
     main()
 
