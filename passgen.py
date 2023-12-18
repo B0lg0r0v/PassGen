@@ -101,7 +101,7 @@ def main():
     group.add_argument("-l", "--length", type=int, help="Specify the password length. Default is 20.")
     group.add_argument("-n", "--number-passwords", type=int, help="Specify the number of passwords to generate. Default is 1.")
     group.add_argument("-c", "--clipboard", action="store_true", help="Copy the generated password to the clipboard. Only works with one password at a time.")
-    group.add_argument("-e", "--encrypt", help="Encrypt the generated password with AES-256. Only works with one password at a time.")
+    group.add_argument("-e", "--encrypt", help="Encrypt a password with AES-256. Only works with one password at a time.")
     group.add_argument("-de", "--decrypt", nargs=2, metavar=('KEY', 'PASSWORD'), help="Decrypt a password given the key and the encrypted password.")
     group.add_argument("-o", "--output", help="Save the generated password to a file.")
 
