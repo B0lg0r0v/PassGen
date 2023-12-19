@@ -14,7 +14,6 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.backends import default_backend
 from cryptography.fernet import Fernet
 
-
 #----------------Function to generate password----------------#
 
 def generatePassword(length, chars):
@@ -24,9 +23,6 @@ def generatePassword(length, chars):
     except Exception as e:
         print(f'\n{indent} {Fore.RED}Error.{Fore.RESET}')
         sys.exit(1)
-
-#-------------------------------------------------------------#
-
 
 #----------------Function to encrypt and decrypt passwords----------------#
 
@@ -54,7 +50,7 @@ def encryptPassword(password):
             algorithm=hashes.SHA256(),
             length=32,
             salt=salt,
-            iterations=300000,
+            iterations=600000,#reconmended by OWASP
             backend=default_backend()
         )
         key = base64.urlsafe_b64encode(kdf.derive(keyPassword))  # Can only use kdf once
@@ -112,7 +108,6 @@ def main():
     group.add_argument("-exs", "--exclude-special", action="store_true", help="Exclude special characters from the password.")
     group.add_argument("-exu", "--exclude-upper", action="store_true", help="Exclude uppercase letters from the password.")
     group.add_argument("-exd", "--exclude-digits", action="store_true", help="Exclude digits from the password.")
-
     
     args = parser.parse_args()
 
@@ -186,9 +181,6 @@ def main():
         if args.clipboard:
             pyperclip.copy(storedPassword[0])
             print(f'{indent} {Fore.LIGHTBLUE_EX}Password copied to clipboard.{Fore.RESET}')
-
-
-    #--------------------------------------------------------------------------#
             
             
     #----------------Check if the user has selected the encrypt option----------------#
@@ -208,6 +200,7 @@ def main():
             sys.exit(1)
 
     #----------------------------------------------------------------------------------#
+    
 
 if __name__ == "__main__":
 
@@ -225,6 +218,7 @@ if __name__ == "__main__":
     print("\n")
 
     indent = ' ' * 3
+
     colorama_init(autoreset=True)
     main()
 
