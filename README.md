@@ -1,9 +1,15 @@
 # PassGen
 
-<p align='center'>
-   <img width='700' src='https://github.com/B0lg0r0v/PassGen/assets/115954804/1ad23371-648c-46e9-ae29-cb61984d3b9c'>
-</p>
-
+```
+                                          ___                  _____         
+                                         / _ \ ___ _ ___  ___ / ___/___  ___ 
+                                        / ___// _ `/(_-< (_-</ (_ // -_)/ _ \
+                                       /_/    \_,_//___//___/\___/ \__//_//_/
+                                                                               
+                                       
+                                           Author: B0lg0r0v
+                                           https://root.security
+```
 # Table of Contents
 
 - [PassGen](#passgen)
