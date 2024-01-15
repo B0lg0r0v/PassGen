@@ -1,6 +1,7 @@
 # PassGen
 
-```
+<div align=center>
+
                                     ___                  _____         
                                    / _ \ ___ _ ___  ___ / ___/___  ___ 
                                   / ___// _ `/(_-< (_-</ (_ // -_)/ _ \
@@ -9,7 +10,9 @@
                                  
                                      Author: B0lg0r0v
                                      https://root.security
-```
+                                     
+</div>
+
 # Table of Contents
 
 - [PassGen](#passgen)
